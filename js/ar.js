@@ -1,6 +1,6 @@
 angular.module('ar', ['ui.bootstrap', 'btford.markdown', 'ngClipboard'])
   .config(['ngClipProvider', function(ngClipProvider) {
-    ngClipProvider.setPath("js/bower_components/zeroclipboard/dist/ZeroClipboard.swf");
+    ngClipProvider.setPath("js/bower_components/zeroclipboard/ZeroClipboard.swf");
   }])
   .controller('ReportCtrl', function($scope) {
     $scope.date = new Date();

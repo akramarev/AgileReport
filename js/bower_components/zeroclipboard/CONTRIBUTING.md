@@ -7,23 +7,19 @@ If you want to build some new features, we have a [roadmap.md](docs/roadmap.md) 
 
 ### Cloning
 
-```sh
-$ git clone https://github.com/zeroclipboard/zeroclipboard.git
-$ cd zeroclipboard/
-$ npm install -g grunt-cli
-$ npm install
-$ grunt
-```
+    $ git clone https://github.com/zeroclipboard/zeroclipboard.git
+    $ cd zeroclipboard/
+    $ npm install -g grunt-cli
+    $ npm install
+    $ grunt
+
 
 ### Developing
 
-```sh
-$ npm install
-$ grunt
-```
+    $ npm install
+    $ grunt
+
 
 ### Testing
 
-```sh
-$ grunt test
-```
+    $ grunt test
