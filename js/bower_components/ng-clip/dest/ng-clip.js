@@ -35,19 +35,24 @@ angular.module('ngClipboard', []).
       link: function (scope, element, attrs) {
         // Create the clip object
         var clip = new ZeroClipboard(element);
-        clip.on( 'load', function(client) {
-          var onDataRequested = function (client) {
-            client.setHtml(scope.$eval(scope.clipCopy));
-            if (angular.isDefined(attrs.clipClick)) {
-              scope.$apply(scope.clipClick);
-            }
-          };
-          client.on('dataRequested', onDataRequested);
+        client.on( 'copy', function (event) {
+          var clipboard = event.clipboardData;
+          clipboard.setData('text/html', scope.$eval(scope.clipCopy));
+        });
 
-          scope.$on('$destroy', function() {
-            client.off('dataRequested', onDataRequested);
-            client.unclip(element);
-          });
+        // clip.on( 'load', function(client) {
+        //   var onDataRequested = function (client) {
+        //     client.setHtml(scope.$eval(scope.clipCopy));
+        //     if (angular.isDefined(attrs.clipClick)) {
+        //       scope.$apply(scope.clipClick);
+        //     }
+        //   };
+        //   client.on('dataRequested', onDataRequested);
+
+        //   scope.$on('$destroy', function() {
+        //     client.off('dataRequested', onDataRequested);
+        //     client.unclip(element);
+        //   });
         });
       }
     };
