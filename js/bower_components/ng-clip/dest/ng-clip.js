@@ -35,7 +35,7 @@ angular.module('ngClipboard', []).
       link: function (scope, element, attrs) {
         // Create the clip object
         var clip = new ZeroClipboard(element);
-        client.on( 'copy', function (event) {
+        clip.on('copy', function (event) {
           var clipboard = event.clipboardData;
           clipboard.setData('text/html', scope.$eval(scope.clipCopy));
         });
@@ -53,7 +53,7 @@ angular.module('ngClipboard', []).
         //     client.off('dataRequested', onDataRequested);
         //     client.unclip(element);
         //   });
-        });
+        //});
       }
     };
   }]);
