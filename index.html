@@ -51,24 +51,26 @@
             <textarea class="form-control" rows="4" ng-model="questions" placeholder="Any questions?"></textarea>
           </div>
         </div>
-        <div class="col-sm-6 report">
-          <h3 class="rName">{{name}}'s work report ({{date | date: 'mediumDate'}})</h3>
-          <dl>
-            <dt>Done:</dt>
-            <dd btf-markdown="done"></dd>
-          </dl>
-          <dl>
-            <dt>In Progress:</dt>
-            <dd btf-markdown="inprogress"></dd>
-          </dl>
-          <dl>
-            <dt>Reviewed:</dt>
-            <dd btf-markdown="reviewed"></dd>
-          </dl>
-          <dl>
-            <dt>Questions:</dt>
-            <dd btf-markdown="questions"></dd>
-          </dl>
+        <div class="col-sm-6">
+          <div class="report">
+            <h3 class="rName">{{name}}'s work report ({{date | date: 'mediumDate'}})</h3>
+            <dl>
+              <dt>Done:</dt>
+              <dd btf-markdown="done"></dd>
+            </dl>
+            <dl>
+              <dt>In Progress:</dt>
+              <dd btf-markdown="inprogress"></dd>
+            </dl>
+            <dl>
+              <dt>Reviewed:</dt>
+              <dd btf-markdown="reviewed"></dd>
+            </dl>
+            <dl>
+              <dt>Questions:</dt>
+              <dd btf-markdown="questions"></dd>
+            </dl>
+          </div>
           <div class="row">
             <div class="col-sm-6">
               <button type="button" class="btn btn-primary" ng-click="sendReport()">Email the Text Report</button>

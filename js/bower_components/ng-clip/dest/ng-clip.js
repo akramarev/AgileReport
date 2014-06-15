@@ -38,14 +38,18 @@ angular.module('ngClipboard', []).
         clip.on('copy', function (event) {
           var clipboard = event.clipboardData;
           clipboard.setData('text/html', scope.$eval(scope.clipCopy));
+
+          if (angular.isDefined(attrs.clipClick)) {
+            scope.$apply(scope.clipClick);
+          }
         });
 
         // clip.on( 'load', function(client) {
         //   var onDataRequested = function (client) {
         //     client.setHtml(scope.$eval(scope.clipCopy));
-        //     if (angular.isDefined(attrs.clipClick)) {
-        //       scope.$apply(scope.clipClick);
-        //     }
+            // if (angular.isDefined(attrs.clipClick)) {
+            //   scope.$apply(scope.clipClick);
+            // }
         //   };
         //   client.on('dataRequested', onDataRequested);
 
