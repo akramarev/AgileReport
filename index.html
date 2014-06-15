@@ -29,7 +29,7 @@
       </div>
 
       <div class="row" ng-controller="ReportCtrl">
-        <div class="col-sm-6">
+        <div class="col-sm-6 setup">
           <div class="form-group">
             <label for="name">First and Last Name:</label>
             <input type="text" id="name" class="form-control" ng-model="name" placeholder="What is your name?"></textarea>
@@ -51,8 +51,8 @@
             <textarea class="form-control" rows="4" ng-model="questions" placeholder="Any questions?"></textarea>
           </div>
         </div>
-        <div class="col-sm-6">
-          <h3>{{name}}'s work report ({{date | date: 'mediumDate'}})</h3>
+        <div class="col-sm-6 report">
+          <h3 class="rName">{{name}}'s work report ({{date | date: 'mediumDate'}})</h3>
           <dl>
             <dt>Done:</dt>
             <dd btf-markdown="done"></dd>
@@ -69,27 +69,29 @@
             <dt>Questions:</dt>
             <dd btf-markdown="questions"></dd>
           </dl>
+          <div class="row">
+            <div class="col-sm-6">
+              <button type="button" class="btn btn-primary" ng-click="sendReport()">Email the Text Report</button>
+            </div>
+            <div class="col-sm-6">
+              <button type="button" class="btn btn-primary" clip-copy="getReportHtmlToCopy()" clip-click="copyReportClick()">Copy the Html Report</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </body>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
   <script src="js/ui-bootstrap-tpls-0.11.0.min.js"></script>
 
-  <script src="js/angular-sanitize.min.js"></script>
-  <script src="js/showdown.js"></script>
-  <script src="js/markdown.js"></script>
+  <script src="js/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="js/bower_components/showdown/compressed/showdown.js"></script>
+  <script src="js/bower_components/angular-markdown-directive/markdown.js"></script>
 
-  <script type="text/javascript">
-    angular.module('ar', ['ui.bootstrap', 'btford.markdown'])
-      .controller('ReportCtrl', function($scope) {
-        $scope.date = new Date();
-        $scope.done = "1. [RED-123](https://jira.internal.syncplicity.com/browse/RED-123) Fixed. Please review.";
-        $scope.inprogress = "* VPN connection problem _resolving_, I'm going to call EMC support tomorrow **again**.";
-        $scope.reviewed = "* [RED-777](https://jira.internal.syncplicity.com/browse/RED-777) Looks good. Merged.";
-        $scope.reviewed += "\n * [DB Master PR](https://github.com/syncp/syncp-database/pull/531)";
-        $scope.questions = "```NSLog (@\"Unknown proramming language, why does the syntax suck?\");```";
-      })
-  </script>
+  <script src="js/bower_components/zeroclipboard/dist/ZeroClipboard.min.js"></script>
+  <script src="js/bower_components/ng-clip/dest/ng-clip.js"></script>
+
+  <script src="js/ar.js"></script>
 </html>
