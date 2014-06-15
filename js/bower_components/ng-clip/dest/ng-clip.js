@@ -36,7 +36,6 @@ angular.module('ngClipboard', []).
         // Create the clip object
         var clip = new ZeroClipboard(element);
         clip.on( 'load', function(client) {
-          alert( "movie is loaded" );
           var onDataRequested = function (client) {
             client.setText(scope.$eval(scope.clipCopy));
             if (angular.isDefined(attrs.clipClick)) {
