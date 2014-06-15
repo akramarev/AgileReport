@@ -37,7 +37,7 @@ angular.module('ngClipboard', []).
         var clip = new ZeroClipboard(element);
         clip.on( 'load', function(client) {
           var onDataRequested = function (client) {
-            client.setText(scope.$eval(scope.clipCopy));
+            client.setHtml(scope.$eval(scope.clipCopy));
             if (angular.isDefined(attrs.clipClick)) {
               scope.$apply(scope.clipClick);
             }
