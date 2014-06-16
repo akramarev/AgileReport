@@ -1,14 +1,25 @@
-angular.module('ar', ['ui.bootstrap', 'btford.markdown', 'ngClipboard'])
+angular.module('ar', ['ui.bootstrap', 'btford.markdown', 'ngClipboard', 'ngCookies'])
   .config(['ngClipProvider', function(ngClipProvider) {
     ngClipProvider.setPath("js/bower_components/zeroclipboard/dist/ZeroClipboard.swf");
   }])
-  .controller('ReportCtrl', function($scope) {
+  .controller('ReportCtrl', function($scope, $cookieStore) {
     $scope.date = new Date();
-    $scope.done = "1. [RED-123](https://jira.internal.syncplicity.com/browse/RED-123) Fixed. Please review.";
-    $scope.inprogress = "* VPN connection problem _resolving_, I'm going to call EMC support tomorrow **again**.";
-    $scope.reviewed = "* [RED-777](https://jira.internal.syncplicity.com/browse/RED-777) Looks good. Merged.";
-    $scope.reviewed += "\n * [DB Master PR](https://github.com/syncp/syncp-database/pull/531)";
-    $scope.questions = "```NSLog (@\"Some smart question should be here\");```";
+
+    $scope.model = $cookieStore.get('model');
+    if(typeof $scope.model == 'undefined')
+    {
+      $scope.model = {
+        done: "1. [RED-123](https://jira.internal.syncplicity.com/browse/RED-123) Fixed. Please review.",
+        inprogress: "* VPN connection problem _resolving_, I'm going to call EMC support tomorrow **again**.",
+        reviewed: "* [RED-777](https://jira.internal.syncplicity.com/browse/RED-777) Looks good. Merged."
+          + "\n * [DB Master PR](https://github.com/syncp/syncp-database/pull/531)",
+        questions: "```NSLog (@\"Some smart question should be here\");```"
+      }
+    }
+
+    $scope.$watchCollection('model', function(newValue) {
+      $cookieStore.put('model', newValue);
+    });
 
     $scope.sendReport = function() {
       var link = "mailto:manager@localhost"
