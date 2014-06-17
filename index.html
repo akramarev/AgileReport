@@ -43,6 +43,10 @@
             <textarea class="form-control" rows="4" ng-model="model.inprogress" placeholder="What's in progress still?"></textarea>
           </div>
           <div class="form-group">
+            <label for="next">Next:</label>
+            <textarea class="form-control" rows="4" ng-model="model.next" placeholder="What will be done next?"></textarea>
+          </div>
+          <div class="form-group">
             <label for="reviewed">Reviewed:</label>
             <textarea class="form-control" rows="4" ng-model="model.reviewed" placeholder="What was reviewed today?"></textarea>
           </div>
@@ -61,6 +65,10 @@
             <dl>
               <dt>In Progress:</dt>
               <dd btf-markdown="model.inprogress"></dd>
+            </dl>
+            <dl>
+              <dt>Next:</dt>
+              <dd btf-markdown="model.next"></dd>
             </dl>
             <dl>
               <dt>Reviewed:</dt>

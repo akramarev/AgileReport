@@ -10,7 +10,8 @@ angular.module('ar', ['ui.bootstrap', 'btford.markdown', 'ngClipboard', 'ngCooki
     {
       $scope.model = {
         done: "1. [RED-123](https://jira.internal.syncplicity.com/browse/RED-123) Fixed. Please review.",
-        inprogress: "* VPN connection problem _resolving_, I'm going to call EMC support tomorrow **again**.",
+        inprogress: "* VPN connection problem _resolving_.",
+        next: "* I'm going to call EMC support tomorrow, and ask to check my connection **again**.",
         reviewed: "* [RED-777](https://jira.internal.syncplicity.com/browse/RED-777) Looks good. Merged."
           + "\n * [DB Master PR](https://github.com/syncp/syncp-database/pull/531)",
         questions: "```NSLog (@\"Some smart question should be here\");```"
@@ -28,7 +29,7 @@ angular.module('ar', ['ui.bootstrap', 'btford.markdown', 'ngClipboard', 'ngCooki
 
       angular.forEach($('.setup .form-group'), function (value, key) {
         link += encodeURIComponent("#" + $(value).find('label').text() + "# \n ");
-        link += encodeURIComponent($(value).find('textarea').val() + " \n\n ");
+        link += encodeURIComponent($(value).find('input, textarea').val() + " \n\n ");
       });
 
       window.location.href = link;
