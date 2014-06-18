@@ -7,15 +7,8 @@
     <title>Agile Report</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <style type="text/css">
-      .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
-
-      .starter-template {
-        padding: 40px 15px;
-        text-align: center;
-      }
-    </style>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/ar.css" rel="stylesheet" type="text/css">
   </head>
 
   <body>
@@ -43,7 +36,7 @@
             <textarea class="form-control" rows="4" ng-model="model.inprogress" placeholder="What's in progress still?"></textarea>
           </div>
           <div class="form-group">
-            <label for="next">Next:</label>
+            <label for="next">Next Day:</label>
             <textarea class="form-control" rows="4" ng-model="model.next" placeholder="What will be done next?"></textarea>
           </div>
           <div class="form-group">
@@ -56,28 +49,32 @@
           </div>
         </div>
         <div class="col-sm-6">
-          <div class="report">
-            <h3 class="rName">{{model.name}}'s work report ({{date | date: 'mediumDate'}})</h3>
-            <dl>
-              <dt>Done:</dt>
-              <dd btf-markdown="model.done"></dd>
-            </dl>
-            <dl>
-              <dt>In Progress:</dt>
-              <dd btf-markdown="model.inprogress"></dd>
-            </dl>
-            <dl>
-              <dt>Next:</dt>
-              <dd btf-markdown="model.next"></dd>
-            </dl>
-            <dl>
-              <dt>Reviewed:</dt>
-              <dd btf-markdown="model.reviewed"></dd>
-            </dl>
-            <dl>
-              <dt>Questions:</dt>
-              <dd btf-markdown="model.questions"></dd>
-            </dl>
+          <div class="report panel panel-default">
+            <div class="panel-heading">
+              <h3 class="rName panel-title">{{model.name}}'s work report ({{date | date: 'mediumDate'}})</h3>
+            </div>
+            <div class="panel-body">
+              <div ng-if="model.done.length > 0" class="animate-if">
+                <h5>Done:</h5>
+                <p btf-markdown="model.done"></p>
+              </div>
+              <div ng-if="model.inprogress.length > 0" class="animate-if">
+                <h5>In Progress:</h5>
+                <p btf-markdown="model.inprogress"></p>
+              </div>
+              <div ng-if="model.next.length > 0" class="animate-if">
+                <h5>Next Day:</h5>
+                <p btf-markdown="model.next"></p>
+              </div>
+              <div ng-if="model.reviewed.length > 0" class="animate-if">
+                <h5>Reviewed:</h5>
+                <p btf-markdown="model.reviewed"></p>
+              </div>
+              <div ng-if="model.questions.length > 0" class="animate-if">
+                <h5>Questions:</h5>
+                <p btf-markdown="model.questions"></p>
+              </div>
+            </div>
           </div>
           <div>
             <button type="button" class="btn btn-default" ng-click="sendReport()">Email the Text Report</button>
@@ -100,6 +97,7 @@
   <script src="js/bower_components/ng-clip/dest/ng-clip.js"></script>
 
   <script src="js/bower_components/angular-cookies/angular-cookies.min.js"></script>
+  <script src="js/bower_components/angular-animate/angular-animate.min.js"></script>
 
   <script src="js/ar.js"></script>
 

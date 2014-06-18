@@ -1,4 +1,4 @@
-angular.module('ar', ['ui.bootstrap', 'btford.markdown', 'ngClipboard', 'ngCookies'])
+angular.module('ar', ['ui.bootstrap', 'btford.markdown', 'ngClipboard', 'ngCookies', 'ngAnimate'])
   .config(['ngClipProvider', function(ngClipProvider) {
     ngClipProvider.setPath("js/bower_components/zeroclipboard/dist/ZeroClipboard.swf");
   }])
@@ -28,8 +28,12 @@ angular.module('ar', ['ui.bootstrap', 'btford.markdown', 'ngClipboard', 'ngCooki
         + "&body=";
 
       angular.forEach($('.setup .form-group'), function (value, key) {
-        link += encodeURIComponent("#" + $(value).find('label').text() + "# \n ");
-        link += encodeURIComponent($(value).find('input, textarea').val() + " \n\n ");
+        var v = $(value).find('input, textarea').val();
+        if (v.length > 0)
+        {
+          link += encodeURIComponent("#" + $(value).find('label').text() + "# \n ");
+          link += encodeURIComponent(v + " \n\n ");
+        }
       });
 
       window.location.href = link;
