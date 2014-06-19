@@ -1,11 +1,11 @@
-angular.module('ar', ['ui.bootstrap', 'btford.markdown', 'ngClipboard', 'ngCookies', 'ngAnimate'])
+angular.module('ar', ['ui.bootstrap', 'btford.markdown', 'ngClipboard', 'ngAnimate'])
   .config(['ngClipProvider', function(ngClipProvider) {
     ngClipProvider.setPath("js/bower_components/zeroclipboard/dist/ZeroClipboard.swf");
   }])
-  .controller('ReportCtrl', function($scope, $cookieStore) {
+  .controller('ReportCtrl', function($scope) {
     $scope.date = new Date();
 
-    $scope.model = $cookieStore.get('model');
+    $scope.model = angular.fromJson(localStorage.model);
     if(typeof $scope.model == 'undefined')
     {
       $scope.model = {
@@ -19,7 +19,7 @@ angular.module('ar', ['ui.bootstrap', 'btford.markdown', 'ngClipboard', 'ngCooki
     }
 
     $scope.$watchCollection('model', function(newValue) {
-      $cookieStore.put('model', newValue);
+      localStorage.model = angular.toJson(newValue);
     });
 
     $scope.sendReport = function() {
