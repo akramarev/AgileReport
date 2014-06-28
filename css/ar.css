@@ -2,10 +2,6 @@ h4, .h4 {
 	font-size: 14px;
 }
 
-body {
-	font-family:"Helvetica Neue Regular","Helvetica Neue",Helvetica,Arial,sans-serif;
-}
-
 .nav, .pagination, .carousel, .panel-title a { 
 	cursor: pointer; 
 }
