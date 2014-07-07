@@ -46,4 +46,17 @@ angular.module('ar', ['ui.bootstrap', 'btford.markdown', 'ngClipboard', 'ngAnima
     $scope.copyReportClick = function() {
       alert('Copied');
     }
+
+    $scope.convertLinks = function(event, fieldName){
+      
+      // this regex changes all markdown links to raw
+      // it is done to avoid affecting links in brackets
+      $scope.model[fieldName] = $scope.model[fieldName].replace(/\[([-A-Za-z0-9]*)\]\((https:\/\/jira\.internal\.syncplicity\.com\/browse\/[-A-Za-z0-9]*)\)/g, '$2');
+      
+      // replaces all war links with markdown notation
+      // the RED-<number> is used as link text
+      $scope.model[fieldName] = $scope.model[fieldName].replace(/(https:\/\/jira\.internal\.syncplicity\.com\/browse\/)([-A-Za-z0-9]*)/g, '[$2]($1$2)');
+
+    }
 })
+
