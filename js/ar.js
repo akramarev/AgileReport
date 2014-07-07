@@ -47,15 +47,37 @@ angular.module('ar', ['ui.bootstrap', 'btford.markdown', 'ngClipboard', 'ngAnima
       alert('Copied');
     }
 
-    $scope.convertLinks = function(event, fieldName){
+    $scope.convertLinks = function(event, fieldName) {
       
-      // this regex changes all markdown links to raw
-      // it is done to avoid affecting links in brackets
-      $scope.model[fieldName] = $scope.model[fieldName].replace(/\[([-A-Za-z0-9]*)\]\((https:\/\/jira\.internal\.syncplicity\.com\/browse\/[-A-Za-z0-9]*)\)/g, '$2');
-      
-      // replaces all war links with markdown notation
-      // the RED-<number> is used as link text
-      $scope.model[fieldName] = $scope.model[fieldName].replace(/(https:\/\/jira\.internal\.syncplicity\.com\/browse\/)([-A-Za-z0-9]*)/g, '[$2]($1$2)');
+
+      var shards = [];
+      var regex = /(https:\/\/jira\.internal\.syncplicity\.com\/browse\/)([-A-Za-z0-9]*)/g;
+      var matches = [];
+      var m;
+      while(m = regex.exec($scope.model[fieldName])){
+        matches.push(m);
+      }
+
+      var currentIndex = 0;
+      for(var i=0; i<matches.length; ++i){
+        shards.push($scope.model[fieldName].substr(currentIndex, matches[i].index - currentIndex));
+        shards.push($scope.model[fieldName].substr(matches[i].index, matches[i][0].length));
+        currentIndex = matches[i].index + matches[i][0].length;
+      }
+      shards.push($scope.model[fieldName].substr(currentIndex));
+
+      for(var i=1; i<shards.length; ++i){
+        if(shards[i].match(regex) && shards[i-1].substr(shards[i-1].length - 2) != ']('){
+          shards[i] = shards[i].replace(/(https:\/\/jira\.internal\.syncplicity\.com\/browse\/)([-A-Za-z0-9]*)/g, '[$2]($1$2)');
+        }
+      }
+
+      $scope.model[fieldName] = shards.join('');
+
+      console.log(shards);
+
+
+      //$scope.model[fieldName] = $scope.model[fieldName].replace(regex, '[$2]($1$2)');
 
     }
 })
