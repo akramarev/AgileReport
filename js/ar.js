@@ -52,7 +52,7 @@ angular.module('ar', ['ui.bootstrap', 'btford.markdown', 'ngClipboard', 'ngAnima
       var result = convertLinks(regex, $scope.model[fieldName], '[$2]($1$2)');
 
       regex = /(https:\/\/github\.com\/syncp\/[-A-Za-z0-9]+\/pull\/)(\d+)/g;
-      result = convertLinks(regex, $scope.model[fieldName], '[PR #$2]($1$2)');
+      result = convertLinks(regex, result, '[PR #$2]($1$2)');
 
       $scope.model[fieldName] = result;
     }
