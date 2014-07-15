@@ -47,32 +47,38 @@ angular.module('ar', ['ui.bootstrap', 'btford.markdown', 'ngClipboard', 'ngAnima
       alert('Copied');
     }
 
-    $scope.convertLinks = function(event, fieldName) {
-      
+    $scope.convertLinks = function(fieldName) {
+      var regex = /(https?:\/\/jira\.internal\.syncplicity\.com\/browse\/)([-A-Za-z0-9]*)/g;
+      var result = convertLinks(regex, $scope.model[fieldName], '[$2]($1$2)');
 
+      regex = /(https:\/\/github\.com\/syncp\/[-A-Za-z0-9]+\/pull\/)(\d+)/g;
+      result = convertLinks(regex, $scope.model[fieldName], '[PR#$2]($1$2)');
+
+      $scope.model[fieldName] = result;
+    }
+
+    convertLinks = function(regex, text, format) {
       var shards = [];
-      var regex = /(https:\/\/jira\.internal\.syncplicity\.com\/browse\/)([-A-Za-z0-9]*)/g;
       var matches = [];
       var m;
-      while(m = regex.exec($scope.model[fieldName])) {
+      while(m = regex.exec(text)) {
         matches.push(m);
       }
 
       var currentIndex = 0;
       for(var i = 0; i < matches.length; ++i) {
-        shards.push($scope.model[fieldName].substr(currentIndex, matches[i].index - currentIndex));
-        shards.push($scope.model[fieldName].substr(matches[i].index, matches[i][0].length));
+        shards.push(text.substr(currentIndex, matches[i].index - currentIndex));
+        shards.push(text.substr(matches[i].index, matches[i][0].length));
         currentIndex = matches[i].index + matches[i][0].length;
       }
-      shards.push($scope.model[fieldName].substr(currentIndex));
+      shards.push(text.substr(currentIndex));
 
       for(var i = 1; i < shards.length; ++i) {
         if(shards[i].match(regex) && shards[i - 1].substr(shards[i - 1].length - 2) != '](') {
-          shards[i] = shards[i].replace(/(https:\/\/jira\.internal\.syncplicity\.com\/browse\/)([-A-Za-z0-9]*)/g, '[$2]($1$2)');
+          shards[i] = shards[i].replace(regex, format);
         }
       }
 
-      $scope.model[fieldName] = shards.join('');
+      return shards.join('');
     }
-})
-
+  })
