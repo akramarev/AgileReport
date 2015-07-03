@@ -51,6 +51,9 @@ angular.module('ar', ['ui.bootstrap', 'btford.markdown', 'ngClipboard', 'ngAnima
       var regex = /(https?:\/\/jira\.internal\.syncplicity\.com\/browse\/)([-A-Za-z0-9]*)/g;
       var result = convertLinks(regex, $scope.model[fieldName], '[$2]($1$2)');
 
+      regex = /(http:\/\/redmine\.weezlabs\.com:8100\/redmine\/issues\/)([0-9]*)/g;
+      result = convertLinks(regex, result, '[RM-$2]($1$2)');
+
       regex = /(https:\/\/github\.com\/syncp\/[-A-Za-z0-9]+\/pull\/)(\d+)/g;
       result = convertLinks(regex, result, '[PR #$2]($1$2)');
 
